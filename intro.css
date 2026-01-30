@@ -347,7 +347,7 @@ body{
 .number2023{
     position: absolute;
     display: flex;
-    top: 63%;
+    top: calc(63% + 30px);
     left: 50%;
     align-items: center;
     justify-content: center;
@@ -2009,7 +2009,7 @@ body{
         display: none;
     }
     .number2023{
-        top: 60%;
+        top: calc(60% + 7px);
         font-size: 65px;
     }
     .box-button{
@@ -2113,7 +2113,7 @@ body{
     }
     .number2023{
         font-size: 50px;
-        top: 58%;
+        top: calc(58% + 7px);
     }
     .number2023 .number:nth-child(1){
         top: -600px;

@@ -2,21 +2,31 @@ var buttonActive = document.querySelector('.button button')
 var slider3 = document.querySelector(".slider3")
 var mySong = document.getElementById("song")
 
-window.onload = function() {
-    // Attempt to play immediately
-    mySong.play().catch(function(error) {
-        console.log("Autoplay was prevented by the browser. Interaction required to play audio.");
-    });
+mySong.loop = true
 
-    // Also attempt to play after 2 seconds
-    setTimeout(function() {
-        if (mySong.paused) {
-            mySong.play().catch(function(error) {
-                console.log("Autoplay after 2s was prevented by the browser.");
-            });
-        }
-    }, 2000);
+function tryPlaySong() {
+    if (mySong.paused) {
+        mySong.play().catch(function(error) {
+            console.log("Autoplay was prevented by the browser. Interaction required to play audio.");
+        });
+    }
 }
+
+window.onload = function() {
+    // Try autoplay, then retry shortly after load
+    tryPlaySong();
+    setTimeout(tryPlaySong, 2000);
+}
+
+// Guarantee looping even on browsers that ignore the loop attribute
+mySong.addEventListener('ended', function() {
+    mySong.currentTime = 0;
+    tryPlaySong();
+});
+
+// Start audio on first user interaction if autoplay is blocked
+document.addEventListener('click', tryPlaySong, { once: true });
+document.addEventListener('touchstart', tryPlaySong, { once: true });
 
 buttonActive.onclick = function(){
     // Show letter immediately
